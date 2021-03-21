@@ -1,0 +1,23 @@
+{
+  "name": "dream-basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yootaebong/deream-basic.git"
+  },
+  "author": "Yaro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yootaebong/deream-basic/issues"
+  },
+  "homepage": "https://github.com/yootaebong/deream-basic#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
