@@ -1,3 +1,6 @@
+// 여러 개의 변수를 한번에 선언하는 것은 var hoisting의 잔재.
+
+
 class main {
   constructor(){
     this._dataUrl = "/data/data.json"

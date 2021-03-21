@@ -1,6 +1,6 @@
 
 # 드림코딩 엘리 웹 프론트 기본
-### 드림코딩 엘리 웹 프론트 기본
+#### 드림코딩 엘리 웹 프론트 기본
 
 # stack
 - html
@@ -9,16 +9,17 @@
 
 # Architecture
 ## 프로젝트 구조
-- front
--- css
--- js
--- res
---- img
+> front (web root)
+>> css 
+>> js (java script)
+>> res (resources)
+>>> img (image)
 
-- back
--- res
---- data
+> back (back root)
+>> res
+>>> data
 
+> app.js (express web server)
 
 # 기간
 - 0321 21:00 ~ 21:30
