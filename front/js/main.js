@@ -1,5 +1,3 @@
-// 여러 개의 변수를 한번에 선언하는 것은 var hoisting의 잔재.
-
 
 class main {
   constructor(){
@@ -58,7 +56,6 @@ class main {
     this.updateItems(items, key, value);
   }
   
-  // Make the items matching {key: value} invisible.
   updateItems(items, key, value) {
     items.forEach(item => {
       if (item.dataset[key] === value) {
