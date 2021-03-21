@@ -75,8 +75,8 @@ body {
 }
 
 .items {
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
   list-style: none;
   padding-left: 0;
   overflow-y: scroll;
@@ -95,12 +95,12 @@ body {
   display: none;
 }
 
-.item__thumbnail {
+.item .thumbnail {
   width: var(--size-thumbnail);
   height: var(--size-thumbnail);
 }
 
-.item__description {
+.item .description {
   margin-left: var(--base-space);
   font-size: var(--font-size);
 }

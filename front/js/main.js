@@ -1,49 +1,71 @@
-// Fetch the items from the JSON file
-function loadItems() {
-  return fetch('data/data.json')
-    .then(response => response.json())
-    .then(json => json.items);
-}
-
-// Update the list with the given items
-function displayItems(items) {
-  const container = document.querySelector('.items');
-  container.innerHTML = items.map(item => createHTMLString(item)).join('');
-}
-
-// Create HTML list item from the given data item
-function createHTMLString(item) {
-  return `
-    <li class="item">
-        <img src="${item.image}" alt="${item.type}" class="item__thumbnail" />
-        <span class="item__description">${item.gender}, ${item.size}</span>
-    </li>
-    `;
-}
-
-function onButtonClick(event, items) {
-  const dataset = event.target.dataset;
-  const key = dataset.key;
-  const value = dataset.value;
-
-  if (key == null || value == null) {
-    return;
+class main {
+  constructor(){
+    this._dataUrl = "/data/data.json"
+    this.lifeCycle()
   }
 
-  displayItems(items.filter(item => item[key] === value));
+  lifeCycle = async() => {
+    // 데이터를 받아옴
+    this._items = await this.getData()
+    // 받아온 데이터를 통해 json으로 아이템을 만들고
+    const createdItems = this._items.map(this.createElement)
+    // 컨테이너 찾기
+    const itemContainer = document.querySelector('.items')
+    // 컨테이너에 아이템 element 리스트 추가
+    itemContainer.append(...createdItems)
+    //  버튼 컨테이너 찾고
+    const btns = document.querySelector('.buttons')
+    // 각 아이템에 버튼 클릭 이벤트 달아주기/
+    btns.addEventListener('click',e => this.onButtonClick(e,createdItems))
+  }
+
+  getData = async() => {
+    //  https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    return await fetch(this._dataUrl)
+    // res에는 fetch 전반적 데이터가 들어가있고 원하는 데이터는 body안에 들어가 있다. body 를 가져오는건 json 화 시키면 됨.
+    .then(res => res.json())
+    // 데이터 파싱
+    .then(res => res.items)
+    .catch(e => console.error(e))
+  }
+
+  createElement(item) {
+    const img = document.createElement('img');
+    img.setAttribute('class', 'thumbnail');
+    img.setAttribute('src', item.image);
+  
+    const span = document.createElement('span');
+    span.setAttribute('class', 'description');
+    span.innerText = `${item.gender}, ${item.size} size`;
+    const li = document.createElement('li');
+    li.setAttribute('class', 'item');
+    li.setAttribute('data-type', item.type);
+    li.setAttribute('data-color', item.color);
+    li.append(img);
+    li.append(span);
+    return li;
+  }
+  onButtonClick(event, items) {
+    const target = event.target;
+    const key = target.dataset.key;
+    const value = target.dataset.value;
+    if (key == null || value == null) {
+      return;
+    }
+    this.updateItems(items, key, value);
+  }
+  
+  // Make the items matching {key: value} invisible.
+  updateItems(items, key, value) {
+    items.forEach(item => {
+      if (item.dataset[key] === value) {
+        item.classList.remove('invisible');
+      } else {
+        item.classList.add('invisible');
+      }
+    });
+  }
+  
 }
 
-function setEventListeners(items) {
-  const logo = document.querySelector('.logo');
-  const buttons = document.querySelector('.buttons');
-  logo.addEventListener('click', () => displayItems(items));
-  buttons.addEventListener('click', event => onButtonClick(event, items));
-}
-
-// main
-loadItems()
-  .then(items => {
-    displayItems(items);
-    setEventListeners(items);
-  })
-  .catch(console.log);
+const mainRepo = new main()
